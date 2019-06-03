@@ -1,0 +1,74 @@
+jQuery(document).ready(function(){
+(function($) {
+  function getLogoType(slideIndex) {
+    switch (slideIndex) {
+      case 1:
+        return "light-logo";
+
+      case 2:
+        return "default-logo";
+
+      case 3:
+        return "dark-logo";
+
+      default:
+        return "default-logo";
+    }
+  }
+
+  var modal = (function() {
+    var el;
+
+    return {
+      open: function(selector) {
+        el = $(selector);
+        el.fadeIn();
+        return el;
+      },
+      close: function() {
+        el.fadeOut("fast", function() {
+          el = null;
+        });
+      }
+    };
+  })();
+
+  $(document).ready(function() {
+      
+	jQuery('.js-contact-us').click(function(){
+		modal.open("#contact-us-modal");
+	}); 
+	jQuery('.js-close-modal').click(function(){
+		modal.close();
+	});
+
+      
+
+
+    var logoWrapper = $(".eltdf-menu-area .eltdf-logo-wrapper");
+    var logo = logoWrapper.find("a");
+
+    var slider = $("#rev_slider_1_1").on("revolution.slide.onchange", function(
+      e,
+      sliderData
+    ) {
+      var logoType = getLogoType(sliderData.slideIndex);
+
+      logoWrapper.addClass("is-ready");
+
+      logo.removeClass().addClass(logoType);
+    });
+  });
+})(jQuery);
+});
+
+jQuery(document).ready(function(){
+	jQuery('.sidebar-icon').click(function(){
+		jQuery('.sidebar-icon').toggleClass('open');
+		jQuery(this).toggleClass('open');
+	});
+	jQuery('.nav-icon1').click(function(){
+		jQuery(this).toggleClass('open');
+	});
+});
+
